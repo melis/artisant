@@ -40,7 +40,7 @@
         external_url: string;
     }
 
-    export interface Product {
+    export interface ProductType {
         product_id: number;
         name: string;
         description: string;
@@ -63,9 +63,17 @@
         quantity_available: number;
     }
 
+    export interface Respons{
+        status: string,
+        data: {
+            products: ProductType[],
+            creators: any
+        }
+    }
 
-type StateType={
-    products: Product[],
+
+export type StateType={
+    products: ProductType[],
     load: boolean,
     error: null | string 
 }
@@ -76,13 +84,18 @@ const productState: StateType = {
     error: null
   };
   
-export type ActionType={ type: 'SET_PRODUCTS', products: Product[] } | { type: 'SET_ERROR', error: string} | {type: 'SET_LOAD'}
+export type ActionType={ type: 'SET_PRODUCTS', products: ProductType[] } | { type: 'SET_ERROR', error: string} | {type: 'SET_LOAD'}
 
+
+declare module 'react-redux' {
+    interface DefaultRootState extends StateType {}
+}
  
-  const reducer = (state = productState, action: ActionType): StateType => {
+  const reducer = (state: StateType = productState, action: ActionType): StateType => {
+    
     switch (action.type) {
       case 'SET_PRODUCTS':
-        return {  products: [...state.products, ...action.products], load: false, error: null };
+        return {  products: action.products, load: false, error: null };
     case "SET_LOAD":
         return { ...state, load: true, error: null}
         case "SET_ERROR":

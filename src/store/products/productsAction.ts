@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { ActionType, Product } from './productsReduser';
+import { ActionType, ProductType, Respons } from './productsReduser';
 
 
-export const setProducts: (products: Product[])=> ActionType = (products: Product[] ) => {
+export const setProducts: (products: ProductType[])=> ActionType = (products: ProductType[] ) => {
     return { type: 'SET_PRODUCTS', products };
   };
   
@@ -19,9 +19,12 @@ export const getProducts =()=>{
         return async (dispatch: any)=>{
             dispatch(setLoad())
             try{
-                const {data}=await axios.get('https://artisant.io/api/products')
-                if (data) { throw new Error()}
-                setProducts(data)
+                const {data }=await axios.get<Respons>('https://artisant.io/api/products')
+                if (data.status!=='success') { throw new Error()}
+               
+               dispatch(setProducts(data.data.products.slice(0, 10)))
+              
+                
             }catch(e){
                 dispatch(setError('SomeError'))
             }
