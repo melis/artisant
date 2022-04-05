@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './App.css';
-import Product from './components/Product';
+import Product from './components/Product/Product';
 import { getProducts } from './store/products/productsAction';
 
 
