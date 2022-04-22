@@ -1,28 +1,28 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import {
-  ActionBodyTypes,
+  ActionCreatorsTypes,
   ActionTypes,
   ProductType,
   Respons,
 } from "./productsReduser";
 
-export const setProducts: (products: ProductType[]) => ActionBodyTypes = (
+export const setProducts: (products: ProductType[]) => ActionCreatorsTypes = (
   products: ProductType[]
 ) => {
   return { type: ActionTypes.SET_PRODUCTS, products };
 };
 
-export const setError = (error: string): ActionBodyTypes => {
+export const setError = (error: string): ActionCreatorsTypes => {
   return { type: ActionTypes.SET_ERROR, error };
 };
 
-export const setLoad = (): ActionBodyTypes => {
+export const setLoad = (): ActionCreatorsTypes => {
   return { type: ActionTypes.SET_LOAD };
 };
 
 export const getProducts = () => {
-  return async (dispatch: Dispatch<ActionBodyTypes>) => {
+  return async (dispatch: Dispatch<ActionCreatorsTypes>) => {
     dispatch(setLoad());
     try {
       const { data } = await axios.get<Respons>(
