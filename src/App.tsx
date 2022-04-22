@@ -1,20 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import style from "./App.module.scss";
 import Product from "./components/Product/Product";
-import { getProducts } from "./store/products/productsAction";
+import { useActions } from "./hooks/useActions";
+import { useTypeSelector } from "./hooks/useTypeSelector";
 
 function App() {
-  const { products, load } = useSelector((a) => a);
+  const { products, load, error } = useTypeSelector((a) => a.products);
+
   const [available, setAvailable] = useState<boolean>(false);
-  const dispatch = useDispatch();
+
+  const { getProducts } = useMemo(useActions, []);
+
   useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+    getProducts();
+  }, [getProducts]);
 
   if (load) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
   }
 
   return (
