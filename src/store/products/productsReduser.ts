@@ -87,10 +87,20 @@ export enum ActionTypes {
   SET_ERROR = "SET_ERROR",
 }
 
-export type ActionCreatorsTypes =
-  | { type: ActionTypes.SET_PRODUCTS; products: ProductType[] }
-  | { type: ActionTypes.SET_ERROR; error: string }
-  | { type: ActionTypes.SET_LOAD };
+export interface SetProductsType {
+  type: ActionTypes.SET_PRODUCTS;
+  products: ProductType[];
+}
+
+export interface SetLoadType {
+  type: ActionTypes.SET_LOAD;
+}
+
+export interface SetErrorType {
+  type: ActionTypes.SET_ERROR;
+  error: string;
+}
+export type ActionCreatorsTypes = SetProductsType | SetErrorType | SetLoadType;
 
 const reducer = (
   state: StateType = productState,

@@ -5,19 +5,22 @@ import {
   ActionTypes,
   ProductType,
   Respons,
+  SetProductsType,
+  SetErrorType,
+  SetLoadType,
 } from "./productsReduser";
 
-export const setProducts: (products: ProductType[]) => ActionCreatorsTypes = (
+export const setProducts: (products: ProductType[]) => SetProductsType = (
   products: ProductType[]
 ) => {
   return { type: ActionTypes.SET_PRODUCTS, products };
 };
 
-export const setError = (error: string): ActionCreatorsTypes => {
+export const setError = (error: string): SetErrorType => {
   return { type: ActionTypes.SET_ERROR, error };
 };
 
-export const setLoad = (): ActionCreatorsTypes => {
+export const setLoad = (): SetLoadType => {
   return { type: ActionTypes.SET_LOAD };
 };
 

@@ -4,5 +4,6 @@ import * as ActionCreators from "../store/products/productsAction";
 
 export const useActions = () => {
   const dispatch = useDispatch();
+
   return bindActionCreators(ActionCreators, dispatch);
 };
